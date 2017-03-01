@@ -24,16 +24,16 @@ end
       is_silent_users ={},
       filterlist ={},
       settings = {
-          lock_link = 'no',
-          lock_tag = 'no',
-		  lock_fosh = 'no',
+          lock_link = 'yes',
+          lock_tag = 'yes',
+		  lock_fosh = 'yes',
           lock_spam = 'no',
-          lock_webpage = 'no',
+          lock_webpage = 'yes',
 		  lock_arabic = 'no',
-          lock_markdown = 'no',
-          flood = 'no',
-          lock_bots = 'no',
-          welcome = 'no'
+          lock_markdown = 'yes',
+          flood = 'yes',
+          lock_bots = 'yes',
+          welcome = 'yes'
           },
    mutes = {
                   mute_forward = 'no',
