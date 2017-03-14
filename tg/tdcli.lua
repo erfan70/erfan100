@@ -1,5 +1,4 @@
 --[[
---[[
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
    the Free Software Foundation; either version 2 of the License, or
@@ -30,8 +29,8 @@ local function getChatId(chat_id)
   local chat = {}
   local chat_id = tostring(chat_id)
 
-  if chat_id:match('^-1000') then
-    local channel_id = chat_id:gsub('-1000', '')
+  if chat_id:match('^-100') then
+    local channel_id = chat_id:gsub('-100', '')
     chat = {ID = channel_id, type = 'channel'}
   else
     local group_id = chat_id:gsub('-', '')
@@ -513,10 +512,10 @@ M.deleteRecentlyFoundChats = deleteRecentlyFoundChats
 -- Chats are sorted by their type and creation date
 -- @user_id User identifier
 -- @offset_chat_id Chat identifier to return chats from, use 0 for the first request
--- @limit Maximum number of chats to be returned, up to 1000
+-- @limit Maximum number of chats to be returned, up to 100
 local function getCommonChats(user_id, offset_chat_id, limit, dl_cb, cmd)
-  if not limit or limit > 1000 then
-    limit = 1000
+  if not limit or limit > 100 then
+    limit = 100
   end
 
   tdcli_function ({
@@ -539,8 +538,8 @@ M.getCommonChats = getCommonChats
 -- If offset is negative, limit must be greater than -offset.
 -- There may be less than limit messages returned even the end of the history is not reached
 local function getChatHistory(chat_id, from_message_id, offset, limit, dl_cb, cmd)
-  if not limit or limit > 1000 then
-    limit = 1000
+  if not limit or limit > 100 then
+    limit = 100
   end
 
   tdcli_function ({
@@ -574,12 +573,12 @@ M.deleteChatHistory = deleteChatHistory
 -- @chat_id Chat identifier to search in
 -- @query Query to search for
 -- @from_message_id Identifier of the message from which we need a history, you can use 0 to get results from beginning
--- @limit Maximum number of messages to be returned, can't be greater than 1000
+-- @limit Maximum number of messages to be returned, can't be greater than 100
 -- @filter Filter for content of searched messages
 -- filter = Empty|Animation|Audio|Document|Photo|Video|Voice|PhotoAndVideo|Url|ChatPhoto
 local function searchChatMessages(chat_id, query, from_message_id, limit, filter, dl_cb, cmd)
-  if not limit or limit > 1000 then
-    limit = 1000
+  if not limit or limit > 100 then
+    limit = 100
   end
 
   tdcli_function ({
@@ -601,10 +600,10 @@ M.searchChatMessages = searchChatMessages
 -- @offset_date Date of the message to search from, you can use 0 or any date in the future to get results from the beginning
 -- @offset_chat_id Chat identifier of the last found message or 0 for the first request
 -- @offset_message_id Message identifier of the last found message or 0 for the first request
--- @limit Maximum number of messages to be returned, can't be greater than 1000
+-- @limit Maximum number of messages to be returned, can't be greater than 100
 local function searchMessages(query, offset_date, offset_chat_id, offset_message_id, limit, dl_cb, cmd)
-  if not limit or limit > 1000 then
-    limit = 1000
+  if not limit or limit > 100 then
+    limit = 100
   end
 
   tdcli_function ({
@@ -1032,7 +1031,7 @@ local function sendChatAction(chat_id, action, progress, dl_cb, cmd)
     chat_id_ = chat_id,
     action_ = {
       ID = "SendMessage" .. action .. "Action",
-      progress_ = progress or 1000
+      progress_ = progress or 100
     }
   }, dl_cb, cmd)
 end
@@ -1435,7 +1434,7 @@ M.unblockUser = unblockUser
 
 -- Returns users blocked by the current user
 -- @offset Number of users to skip in result, must be non-negative
--- @limit Maximum number of users to return, can't be greater than 1000
+-- @limit Maximum number of users to return, can't be greater than 100
 local function getBlockedUsers(offset, limit, dl_cb, cmd)
   tdcli_function ({
     ID = "GetBlockedUsers",
@@ -1493,7 +1492,7 @@ M.deleteContacts = deleteContacts
 -- Result of this query can't be invalidated, so it must be used with care
 -- @user_id User identifier
 -- @offset Photos to skip, must be non-negative
--- @limit Maximum number of photos to be returned, can't be greater than 1000
+-- @limit Maximum number of photos to be returned, can't be greater than 100
 local function getUserProfilePhotos(user_id, offset, limit, dl_cb, cmd)
   tdcli_function ({
     ID = "GetUserProfilePhotos",
